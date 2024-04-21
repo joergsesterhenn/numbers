@@ -1,7 +1,7 @@
 import unittest
 from approvaltests.approvals import verify
-from german_number_writer.germannumberwriter import GermanNumberWriter
-from german_number_writer.germannumbersegmenter import GermanNumberSegmenter
+from germannumberwriter import GermanNumberWriter
+from germannumbersegmenter import GermanNumberSegmenter
 
 
 class GermanNumbersTest(unittest.TestCase):
