@@ -10,7 +10,7 @@ class GermanSegmentWriter:
     TEENS = ['zehn', 'elf', 'zwölf', 'dreizehn', 'vierzehn', 'fünfzehn',
              'sechzehn', 'siebzehn', 'achtzehn', 'neunzehn']
     # all multiples of ten are also special to us
-    TENS = ['', '', 'zwanzig', 'dreizig', 'vierzig', 'fünfzig', 'sechzig',
+    TENS = ['', '', 'zwanzig', 'dreißig', 'vierzig', 'fünfzig', 'sechzig',
             'siebzig', 'achtzig', 'neunzig']
 
     HUNDRED_SUFFIX = 'hundert'

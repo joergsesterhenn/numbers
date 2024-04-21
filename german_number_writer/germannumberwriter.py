@@ -41,14 +41,23 @@ class GermanNumberWriter:
 
             # if this segment is not empty
             if segment_as_text:
-                # if we are not the highest order lead with a comma
-                if order != self.number_segmenter.get_order_of_number():
+                # if we are not the highest order lead with a seperator
+                if self.number_segmenter.get_order_of_number() > order > 0:
                     number_as_text += self.SEPERATOR_OF_ORDERS
 
                 # append the segment text to the number
                 number_as_text += segment_as_text
 
+                plural_postfix = "n"
+                if segment_as_text is "ein" and order > 1:
+                    number_as_text += "e"
+                    plural_postfix = ""
+
                 # attach the orders suffix
                 number_as_text += self.ORDERS_SUFFIX[order]
+                if plural_postfix and order > 1:
+                    if order % 2 == 0:
+                        number_as_text += "e"
+                    number_as_text += plural_postfix
 
         return number_as_text
