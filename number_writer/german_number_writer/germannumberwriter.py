@@ -1,5 +1,5 @@
-from numbersegmenter import NumberSegmenter
-from germansegmentwriter import GermanSegmentWriter
+from number_writer.numbersegmenter import NumberSegmenter
+from number_writer.german_number_writer.germansegmentwriter import GermanSegmentWriter
 
 
 class GermanNumberWriter:
