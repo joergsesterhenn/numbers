@@ -14,7 +14,7 @@ class GermanSegmentWriter:
             'siebzig', 'achtzig', 'neunzig']
 
     HUNDRED_SUFFIX = 'hundert'
-    PARTIAL_TENS_SEPERATOR = ''
+    PARTIAL_TENS_SEPERATOR = 'und'
     PARTIAL_HUNDREDS_SEPERATOR = ''
 
     def __init__(self, segment: str):
@@ -44,15 +44,26 @@ class GermanSegmentWriter:
             segment_as_text += self.PARTIAL_HUNDREDS_SEPERATOR
         if self.tens == 1:
             return segment_as_text + self.TEENS[self.units]
+        elif self.tens > 1:
+            if self.units:
+                segment_as_text += (
+                        self.DIGITS[self.units] + self.PARTIAL_TENS_SEPERATOR)
+            return segment_as_text + self.TENS[self.tens]
+        elif self.units == 1:
+            return segment_as_text + "eins"
+        else:
+            return segment_as_text + self.DIGITS[self.units]
 
-        return self.append_tens_and_units(
-            segment_as_text, self.tens, self.units)
 
     def handle_tens(self):
         if self.tens == 1:
             return self.TEENS[self.units]
         else:
-            return self.append_tens_and_units("", self.tens, self.units)
+            segment_as_text = ""
+            if self.units:
+                segment_as_text += self.DIGITS[self.units] + self.PARTIAL_TENS_SEPERATOR
+
+            return segment_as_text + self.TENS[self.tens]
 
     def handle_units(self):
         # if self.units == 1:
@@ -61,14 +72,3 @@ class GermanSegmentWriter:
         # needs to be "eine" if there are lower orders higher than 1
         # --> handle in german_number_writer
         return self.DIGITS[self.units]
-
-    def append_tens_and_units(self, segment_as_text, tens, units):
-        segment_as_text += self.TENS[tens]
-
-        if tens > 1 and units:
-            segment_as_text += self.PARTIAL_TENS_SEPERATOR
-
-        return segment_as_text + self.DIGITS[units]
-
-
-
