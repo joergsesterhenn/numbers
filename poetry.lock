@@ -320,6 +320,21 @@ pluggy = ">=1.4,<2.0"
 testing = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
 
 [[package]]
+name = "pytest-approvaltests"
+version = "0.2.4"
+description = "A plugin to use approvaltests with pytest"
+optional = false
+python-versions = ">=3.6.1"
+files = [
+    {file = "pytest-approvaltests-0.2.4.tar.gz", hash = "sha256:325fafdc1ed49d10f88f072c3305b3d35557cbc15748d835be3020db4092e9a6"},
+    {file = "pytest_approvaltests-0.2.4-py3-none-any.whl", hash = "sha256:199ad1cac8ebcbf681f4876d07bf3bbb8bdfa49396e16747027f6bac2fa0a075"},
+]
+
+[package.dependencies]
+approvaltests = "*"
+pytest = ">=7.0.1"
+
+[[package]]
 name = "pyyaml"
 version = "6.0.1"
 description = "YAML parser and emitter for Python"
@@ -458,4 +473,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "780bddecfae4a56e532ac3ee0d113f99603f7f726fd986985c715859309341b6"
+content-hash = "f41faa3379202d27a62b79fa548eac17871fad15870b0f048128b5c1214beac0"

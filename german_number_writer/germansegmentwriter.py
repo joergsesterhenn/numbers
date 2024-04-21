@@ -1,20 +1,21 @@
-class SegmentWriter:
+class GermanSegmentWriter:
     """
     Writes a segment of numbers as text.
     """
 
-    DIGITS = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
-              'eight', 'nine']
+    # special cases "eins/ein/eine"
+    DIGITS = ['', 'ein', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben',
+              'acht', 'neun']
     # all teens are special - who would have thought!
-    TEENS = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen',
-             'sixteen', 'seventeen', 'eighteen', 'nineteen']
+    TEENS = ['zehn', 'elf', 'zwölf', 'dreizehn', 'vierzehn', 'fünfzehn',
+             'sechzehn', 'siebzehn', 'achtzehn', 'neunzehn']
     # all multiples of ten are also special to us
-    TENS = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty',
-            'seventy', 'eighty', 'ninety']
+    TENS = ['', '', 'zwanzig', 'dreizig', 'vierzig', 'fünfzig', 'sechzig',
+            'siebzig', 'achtzig', 'neunzig']
 
-    HUNDRED_SUFFIX = ' hundred'
-    PARTIAL_TENS_SEPERATOR = ' '
-    PARTIAL_HUNDREDS_SEPERATOR = ' and '
+    HUNDRED_SUFFIX = 'hundert'
+    PARTIAL_TENS_SEPERATOR = ''
+    PARTIAL_HUNDREDS_SEPERATOR = ''
 
     def __init__(self, segment: str):
         """
@@ -23,6 +24,8 @@ class SegmentWriter:
         self.hundreds = int(segment[0])
         self.tens = int(segment[1])
         self.units = int(segment[2])
+
+
 
     def to_text(self):
         """
@@ -52,6 +55,11 @@ class SegmentWriter:
             return self.append_tens_and_units("", self.tens, self.units)
 
     def handle_units(self):
+        # if self.units == 1:
+        # needs to be "eins" if it is in the lowest order only
+        # --> handle in german_number_writer
+        # needs to be "eine" if there are lower orders higher than 1
+        # --> handle in german_number_writer
         return self.DIGITS[self.units]
 
     def append_tens_and_units(self, segment_as_text, tens, units):
@@ -61,3 +69,6 @@ class SegmentWriter:
             segment_as_text += self.PARTIAL_TENS_SEPERATOR
 
         return segment_as_text + self.DIGITS[units]
+
+
+

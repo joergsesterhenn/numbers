@@ -1,7 +1,7 @@
 import unittest
+from approvaltests.approvals import verify
 from number_writer.numberwriter import NumberWriter
 from number_writer.numbersegmenter import NumberSegmenter
-from approvaltests.approvals import verify
 
 
 class NumbersTest(unittest.TestCase):
@@ -22,7 +22,7 @@ class NumbersTest(unittest.TestCase):
     # x 43112603 --> forty three million, one hundred and twelve thousand, six hundred and three
 
     def test_single_digits(self):
-        result = [NumberWriter(number).to_text() for number in range(1, 10)]
+        result = [NumberWriter(number).to_text() for number in range(0, 10)]
         verify(result)
  
     def test_every_two_digit_number(self):
