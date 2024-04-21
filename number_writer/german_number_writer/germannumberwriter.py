@@ -1,5 +1,6 @@
-from germannumbersegmenter import GermanNumberSegmenter
+from numbersegmenter import NumberSegmenter
 from germansegmentwriter import GermanSegmentWriter
+
 
 class GermanNumberWriter:
 
@@ -11,11 +12,11 @@ class GermanNumberWriter:
     SEPERATOR_OF_ORDERS = ' '
 
     number: int
-    number_segmenter: GermanNumberSegmenter
+    number_segmenter: NumberSegmenter
 
     def __init__(self, number: int):
         self.number = number
-        self.number_segmenter = GermanNumberSegmenter(number)
+        self.number_segmenter = NumberSegmenter(number)
 
     def to_text(self):
         """
@@ -49,7 +50,7 @@ class GermanNumberWriter:
                 number_as_text += segment_as_text
 
                 plural_postfix = "n"
-                if segment_as_text is "ein" and order > 1:
+                if segment_as_text == "ein" and order > 1:
                     number_as_text += "e"
                     plural_postfix = ""
 

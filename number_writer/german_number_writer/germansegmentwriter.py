@@ -25,8 +25,6 @@ class GermanSegmentWriter:
         self.tens = int(segment[1])
         self.units = int(segment[2])
 
-
-
     def to_text(self):
         """
         :return: this segment as text
@@ -54,14 +52,14 @@ class GermanSegmentWriter:
         else:
             return segment_as_text + self.DIGITS[self.units]
 
-
     def handle_tens(self):
         if self.tens == 1:
             return self.TEENS[self.units]
         else:
             segment_as_text = ""
             if self.units:
-                segment_as_text += self.DIGITS[self.units] + self.PARTIAL_TENS_SEPERATOR
+                segment_as_text += (self.DIGITS[self.units]
+                                    + self.PARTIAL_TENS_SEPERATOR)
 
             return segment_as_text + self.TENS[self.tens]
 

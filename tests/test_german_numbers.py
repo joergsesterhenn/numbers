@@ -1,7 +1,7 @@
 import unittest
 from approvaltests.approvals import verify
 from germannumberwriter import GermanNumberWriter
-from germannumbersegmenter import GermanNumberSegmenter
+from numbersegmenter import NumberSegmenter
 
 
 class GermanNumbersTest(unittest.TestCase):
@@ -51,7 +51,7 @@ class GermanNumbersTest(unittest.TestCase):
         verify(result, encoding="UTF-8")
 
     def test_dissecting_to_order(self):
-        splitter = GermanNumberSegmenter(1501)
+        splitter = NumberSegmenter(1501)
         result = list(splitter.segments())
         verify(result, encoding="UTF-8")
 
