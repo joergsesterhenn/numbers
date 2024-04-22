@@ -1,8 +1,8 @@
 from number_writer.numbersegmenter import NumberSegmenter
-from number_writer.english_number_writer.segmentwriter import SegmentWriter
+from number_writer.english_number_writer.englishsegmentwriter import EnglishSegmentWriter
 
 
-class NumberWriter:
+class EnglishNumberWriter:
 
     # names for multiples of thousand - we are counting with the short scale
     ORDERS_SUFFIX = ['', ' thousand', ' million', ' billion', ' trillion',
@@ -34,7 +34,7 @@ class NumberWriter:
         for order, segment in self.number_segmenter.segments():
 
             # get a segment as text
-            segment_as_text = SegmentWriter(segment).to_text()
+            segment_as_text = EnglishSegmentWriter(segment).to_text()
 
             # if this segment is not empty
             if segment_as_text:

@@ -1,4 +1,4 @@
-class SegmentWriter:
+class EnglishSegmentWriter:
     """
     Writes a segment of numbers as text.
     """
