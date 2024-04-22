@@ -1,4 +1,7 @@
-class EnglishSegmentWriter:
+from number_writer.segmentwriter import SegmentWriter
+
+
+class EnglishSegmentWriter(SegmentWriter):
     """
     Writes a segment of numbers as text.
     """
@@ -15,25 +18,6 @@ class EnglishSegmentWriter:
     HUNDRED_SUFFIX = ' hundred'
     PARTIAL_TENS_SEPERATOR = ' '
     PARTIAL_HUNDREDS_SEPERATOR = ' and '
-
-    def __init__(self, segment: str):
-        """
-        :param segment: needs to be a string consisting of three digits
-        """
-        self.hundreds = int(segment[0])
-        self.tens = int(segment[1])
-        self.units = int(segment[2])
-
-    def to_text(self):
-        """
-        :return: this segment as text
-        """
-        if self.hundreds:
-            return self.handle_hundreds()
-        elif self.tens:
-            return self.handle_tens()
-        elif self.units:
-            return self.handle_units()
 
     def handle_hundreds(self):
         segment_as_text = self.DIGITS[self.hundreds] + self.HUNDRED_SUFFIX

@@ -1,6 +1,8 @@
 import unittest
+
 from approvaltests.approvals import verify
-from number_writer.english_number_writer.englishnumberwriter import EnglishNumberWriter
+
+from number_writer.english.englishnumberwriter import EnglishNumberWriter
 from number_writer.numbersegmenter import NumberSegmenter
 
 

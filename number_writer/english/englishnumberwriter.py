@@ -1,22 +1,14 @@
-from number_writer.numbersegmenter import NumberSegmenter
-from number_writer.english_number_writer.englishsegmentwriter import EnglishSegmentWriter
+from number_writer.english.englishsegmentwriter import EnglishSegmentWriter
+from number_writer.numberwriter import NumberWriter
 
 
-class EnglishNumberWriter:
-
+class EnglishNumberWriter(NumberWriter):
     # names for multiples of thousand - we are counting with the short scale
     ORDERS_SUFFIX = ['', ' thousand', ' million', ' billion', ' trillion',
                      ' quadrillion', ' quintillion', ' sextillion',
                      ' septillion', ' octillion', ' nonillion']
 
     SEPERATOR_OF_ORDERS = ', '
-
-    number: int
-    number_segmenter: NumberSegmenter
-
-    def __init__(self, number: int):
-        self.number = number
-        self.number_segmenter = NumberSegmenter(number)
 
     def to_text(self):
         """

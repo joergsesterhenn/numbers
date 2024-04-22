@@ -1,9 +1,8 @@
-from number_writer.numbersegmenter import NumberSegmenter
-from number_writer.german_number_writer.germansegmentwriter import GermanSegmentWriter
+from number_writer.german.germansegmentwriter import GermanSegmentWriter
+from number_writer.numberwriter import NumberWriter
 
 
-class GermanNumberWriter:
-
+class GermanNumberWriter(NumberWriter):
     # names for multiples of thousand - we are counting with the long scale
     ORDERS_SUFFIX = ['', 'tausend', ' Million', ' Milliarde', ' Billion',
                      ' Billiarde', ' Trillion', ' Trilliarde',
@@ -11,23 +10,14 @@ class GermanNumberWriter:
 
     SEPERATOR_OF_ORDERS = ' '
 
-    number: int
-    number_segmenter: NumberSegmenter
-
-    def __init__(self, number: int):
-        self.number = number
-        self.number_segmenter = NumberSegmenter(number)
-
     def to_text(self):
         """
         :return: the number as text
         """
 
-        # edge case handled first
+        # edge cases handled first
         if self.number == 0:
             return 'null'
-
-        # edge case handled first
         if self.number == 1:
             return 'eins'
 

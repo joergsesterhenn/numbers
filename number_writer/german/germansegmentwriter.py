@@ -1,4 +1,7 @@
-class GermanSegmentWriter:
+from number_writer.segmentwriter import SegmentWriter
+
+
+class GermanSegmentWriter(SegmentWriter):
     """
     Writes a segment of numbers as text.
     """
@@ -16,25 +19,6 @@ class GermanSegmentWriter:
     HUNDRED_SUFFIX = 'hundert'
     PARTIAL_TENS_SEPERATOR = 'und'
     PARTIAL_HUNDREDS_SEPERATOR = ''
-
-    def __init__(self, segment: str):
-        """
-        :param segment: needs to be a string consisting of three digits
-        """
-        self.hundreds = int(segment[0])
-        self.tens = int(segment[1])
-        self.units = int(segment[2])
-
-    def to_text(self):
-        """
-        :return: this segment as text
-        """
-        if self.hundreds:
-            return self.handle_hundreds()
-        elif self.tens:
-            return self.handle_tens()
-        elif self.units:
-            return self.handle_units()
 
     def handle_hundreds(self):
         segment_as_text = self.DIGITS[self.hundreds] + self.HUNDRED_SUFFIX
@@ -66,7 +50,6 @@ class GermanSegmentWriter:
     def handle_units(self):
         # if self.units == 1:
         # needs to be "eins" if it is in the lowest order only
-        # --> handle in german_number_writer
-        # needs to be "eine" if there are lower orders higher than 1
-        # --> handle in german_number_writer
+        # needs to be "eine" depending on the order
+        # --> handle both in german number_writer
         return self.DIGITS[self.units]
