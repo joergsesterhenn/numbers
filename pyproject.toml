@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "number-writer"
 version = "0.1.0"
-description = ""
+description = "This is the number writer kata"
 authors = ["Jörg Sesterhenn <joerg.sesterhenn@gmail.com>"]
 readme = "README.md"
 

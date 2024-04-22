@@ -26,12 +26,21 @@ class SegmentWriter(metaclass=ABCMeta):
 
     @abstractmethod
     def handle_hundreds(self):
+        """
+        This method handles segments with hundreds.
+        """
         pass
 
     @abstractmethod
     def handle_tens(self):
+        """
+        This method handles segments without hundreds.
+        """
         pass
 
     @abstractmethod
     def handle_units(self):
+        """
+        This method handles segments with units only.
+        """
         pass
