@@ -1,3 +1,5 @@
+# fooling around with our classes for a chance at exploratory testing
+
 from io import BytesIO
 from random import randrange
 
