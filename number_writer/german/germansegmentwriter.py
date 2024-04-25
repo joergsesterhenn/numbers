@@ -18,12 +18,9 @@ class GermanSegmentWriter(SegmentWriter):
 
     HUNDRED_SUFFIX = 'hundert'
     PARTIAL_TENS_SEPERATOR = 'und'
-    PARTIAL_HUNDREDS_SEPERATOR = ''
 
     def handle_hundreds(self):
         segment_as_text = self.DIGITS[self.hundreds] + self.HUNDRED_SUFFIX
-        if self.tens or self.units:
-            segment_as_text += self.PARTIAL_HUNDREDS_SEPERATOR
         if self.tens == 1:
             return segment_as_text + self.TEENS[self.units]
         elif self.tens > 1:

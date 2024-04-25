@@ -20,28 +20,33 @@ class EnglishSegmentWriter(SegmentWriter):
     PARTIAL_HUNDREDS_SEPERATOR = ' and '
 
     def handle_hundreds(self):
-        segment_as_text = self.DIGITS[self.hundreds] + self.HUNDRED_SUFFIX
+        hundreds = self.DIGITS[self.hundreds] + self.HUNDRED_SUFFIX
+        hundreds_separator = ""
+        tens = ""
+        tens_separator = ""
+        digits = ""
         if self.tens or self.units:
-            segment_as_text += self.PARTIAL_HUNDREDS_SEPERATOR
+            hundreds_separator = self.PARTIAL_HUNDREDS_SEPERATOR
         if self.tens == 1:
-            return segment_as_text + self.TEENS[self.units]
-
-        return self.append_tens_and_units(
-            segment_as_text, self.tens, self.units)
+            tens = self.TEENS[self.units]
+            digits = ""
+        elif self.tens > 1:
+            tens = self.TENS[self.tens]
+            if self.units:
+                tens_separator = self.PARTIAL_TENS_SEPERATOR
+                digits = self.DIGITS[self.units]
+        else:
+            digits = self.DIGITS[self.units]
+        return hundreds + hundreds_separator + tens + tens_separator + digits
 
     def handle_tens(self):
         if self.tens == 1:
             return self.TEENS[self.units]
         else:
-            return self.append_tens_and_units("", self.tens, self.units)
+            segment = self.TENS[self.tens]
+            if self.tens > 1 and self.units:
+                segment += self.PARTIAL_TENS_SEPERATOR
+            return segment + self.DIGITS[self.units]
 
     def handle_units(self):
         return self.DIGITS[self.units]
-
-    def append_tens_and_units(self, segment_as_text, tens, units):
-        segment_as_text += self.TENS[tens]
-
-        if tens > 1 and units:
-            segment_as_text += self.PARTIAL_TENS_SEPERATOR
-
-        return segment_as_text + self.DIGITS[units]
