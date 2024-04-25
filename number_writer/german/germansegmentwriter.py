@@ -49,7 +49,6 @@ class GermanSegmentWriter(SegmentWriter):
 
     def handle_units(self):
         # if self.units == 1:
-        # needs to be "eins" if it is in the lowest order only
-        # needs to be "eine" depending on the order
-        # --> handle both in german number_writer
+        #   "ein/eine/eins" depending on the order
+        #   --> handle in german number_writer
         return self.DIGITS[self.units]
