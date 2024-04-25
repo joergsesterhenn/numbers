@@ -21,23 +21,20 @@ class EnglishNumberWriter(NumberWriter):
 
         number_as_text = ''
 
-        # build number_as_text by traversing and appending
-        # segments of three digits from highest to lowest orders
         for order, segment in self.number_segmenter.segments():
-
-            # get a segment as text
             segment_as_text = EnglishSegmentWriter(segment).to_text()
-
-            # if this segment is not empty
             if segment_as_text:
-                # if we are not the highest order lead with a comma
-                if order != self.number_segmenter.get_order_of_number():
-                    number_as_text += self.SEPERATOR_OF_ORDERS
-
-                # append the segment text to the number
-                number_as_text += segment_as_text
-
-                # attach the orders suffix
-                number_as_text += self.ORDERS_SUFFIX[order]
+                order_separator = self.calculate_order_separator(order)
+                order_suffix = self.calculate_order_suffix(order)
+                number_as_text += (order_separator +
+                                   segment_as_text +
+                                   order_suffix)
 
         return number_as_text
+
+    def calculate_order_suffix(self, order):
+        return self.ORDERS_SUFFIX[order]
+
+    def calculate_order_separator(self, order):
+        return self.SEPERATOR_OF_ORDERS \
+            if order != self.number_segmenter.get_order_of_number() else ""
