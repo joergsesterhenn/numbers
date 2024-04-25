@@ -33,7 +33,7 @@ class GermanNumberWriter(NumberWriter):
             # if this segment is not empty
             if segment_as_text:
                 # if we are not the highest order lead with a seperator
-                if self.number_segmenter.get_order_of_number() > order:
+                if self.number_segmenter.get_order_of_number() > order > 0:
                     number_as_text += self.SEPERATOR_OF_ORDERS
 
                 # append the segment text to the number
