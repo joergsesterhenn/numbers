@@ -17,8 +17,6 @@ class GermanNumberWriter(NumberWriter):
         # edge cases handled first
         if self.number == 0:
             return 'null'
-        if self.number == 1:
-            return 'eins'
 
         number_as_text = ''
 
@@ -54,7 +52,7 @@ class GermanNumberWriter(NumberWriter):
         """
         is_plural = True
         singularity_suffix = ""
-        if segment_as_text == "ein":
+        if segment_as_text[-3:] == "ein":
             if order == 0:
                 singularity_suffix = "s"
             elif order > 1:

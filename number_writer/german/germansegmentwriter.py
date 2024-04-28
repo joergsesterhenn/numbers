@@ -19,33 +19,28 @@ class GermanSegmentWriter(SegmentWriter):
     HUNDRED_SUFFIX = 'hundert'
     PARTIAL_TENS_SEPERATOR = 'und'
 
-    def handle_hundreds(self):
-        segment_as_text = self.DIGITS[self.hundreds] + self.HUNDRED_SUFFIX
-        if self.tens == 1:
-            return segment_as_text + self.TEENS[self.units]
-        elif self.tens > 1:
-            if self.units:
-                segment_as_text += (
-                        self.DIGITS[self.units] + self.PARTIAL_TENS_SEPERATOR)
-            return segment_as_text + self.TENS[self.tens]
-        elif self.units == 1:
-            return segment_as_text + "eins"
-        else:
-            return segment_as_text + self.DIGITS[self.units]
+    def to_text(self):
+        """
+        :return: this segment as text
+        """
+        hundreds = ""
+        pre_digits = ""
+        tens_separator = ""
+        tens = ""
+        digits = ""
 
-    def handle_tens(self):
-        if self.tens == 1:
-            return self.TEENS[self.units]
-        else:
-            segment_as_text = ""
-            if self.units:
-                segment_as_text += (self.DIGITS[self.units]
-                                    + self.PARTIAL_TENS_SEPERATOR)
+        if self.hundreds:
+            hundreds = self.DIGITS[self.hundreds] + self.HUNDRED_SUFFIX
+        if self.tens:
+            if self.tens == 1:
+                tens = self.TEENS[self.units]
+            else:
+                if self.units:
+                    pre_digits = self.DIGITS[self.units]
+                    tens_separator = self.PARTIAL_TENS_SEPERATOR
+                tens = self.TENS[self.tens]
+        elif self.units:
+            digits = self.DIGITS[self.units]
 
-            return segment_as_text + self.TENS[self.tens]
+        return hundreds + pre_digits + tens_separator + tens + digits
 
-    def handle_units(self):
-        # if self.units == 1:
-        #   "ein/eine/eins" depending on the order
-        #   --> handle in german number_writer
-        return self.DIGITS[self.units]
