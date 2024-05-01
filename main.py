@@ -17,32 +17,31 @@ def main():
             user_input = (
                 input("Enter language [e: english, g: german (q to quit)]: "))
             lang = user_input
-            if user_input in ('q', 'Q'):
-                return
-        while user_input not in ('q', 'Q'):
+        while user_input not in ('q', 'Q', 'l', 'L'):
             user_input = (
                 input("Enter number (q to quit, l to choose language): "))
             number = user_input
             if number.isdecimal():
-                if lang in ('g', 'G'):
-                    print_and_say(
-                        GermanNumberWriter(int(number)).to_text(),
-                        'de')
-                else:
-                    print_and_say(
-                        EnglishNumberWriter(int(number)).to_text())
-            if user_input in ('l', 'L'):
-                break
-            if user_input in ('q', 'Q'):
-                return
+                print_and_say(number, lang)
 
 
-def print_and_say(text, language='en'):
+def print_and_say(number, lang):
+    """
+    prints the number as text and then reads the integer number with
+    the Google text to speech framework, so that we can compare results
+    """
+    if lang in ("g", "G"):
+        language = 'de'
+        text = GermanNumberWriter(int(number)).to_text()
+    else:
+        language = 'en'
+        text = EnglishNumberWriter(int(number)).to_text()
     print(text)
+
     # fun with accents
     accents = ['com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za', 'us']
     number_as_audio = (
-        gTTS(text=text,
+        gTTS(text=number,
              lang=language,
              tld=accents[randrange(len(accents))],
              slow=False))

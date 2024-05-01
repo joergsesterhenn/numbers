@@ -25,16 +25,16 @@ class EnglishNumberWriter(NumberWriter):
             segment_as_text = EnglishSegmentWriter(segment).to_text()
             if segment_as_text:
                 order_separator = self.calculate_order_separator(order)
-                order_suffix = self.calculate_order_suffix(order)
+                order_suffix = self.ORDERS_SUFFIX[order]
                 number_as_text += (order_separator +
                                    segment_as_text +
                                    order_suffix)
 
         return number_as_text
 
-    def calculate_order_suffix(self, order):
-        return self.ORDERS_SUFFIX[order]
-
     def calculate_order_separator(self, order):
+        """
+        if we are not the highest order lead with a seperator
+        """
         return self.SEPERATOR_OF_ORDERS \
             if order != self.number_segmenter.get_order_of_number() else ""
