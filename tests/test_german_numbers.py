@@ -72,7 +72,16 @@ class GermanNumbersTest(unittest.TestCase):
     def test_one_million(self):
         result = GermanNumberWriter(1000000).to_text()
         verify(result, encoding="UTF-8")
-        
+
+    def test_one_hundred_one_million(self):
+        result = GermanNumberWriter(101000000).to_text()
+        verify(result, encoding="UTF-8")
+
+
+    def test_one_hundred_and_one_thousand(self):
+        result = GermanNumberWriter(101000).to_text()
+        verify(result, encoding="UTF-8")
+
     def test_sample_in_millions(self):
         result = "\n".join(
             [GermanNumberWriter(number).to_text() for number in
