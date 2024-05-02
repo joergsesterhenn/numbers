@@ -1,7 +1,6 @@
 # fooling around with our classes for a chance at exploratory testing
 
 from io import BytesIO
-from random import randrange
 
 from number_writer.german.germannumberwriter import GermanNumberWriter
 from number_writer.english.englishnumberwriter import EnglishNumberWriter
@@ -32,7 +31,7 @@ def print_and_say(number, lang):
     prints the number as text and then reads the integer number with
     the Google text to speech framework, so that we can compare results
     """
-    number_as_text,number_as_audio = convert(number, lang)
+    number_as_text, number_as_audio = convert(number, lang)
     print(number_as_text)
     say(number_as_audio)
 
