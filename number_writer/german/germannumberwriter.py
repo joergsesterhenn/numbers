@@ -37,11 +37,16 @@ class GermanNumberWriter(NumberWriter):
         return number_as_text
 
     def calculate_order_suffix(self, is_plural, order):
+        """
+         drei
+         ...hundert
+         ...tausend
+         eine Million
+         zwei Million   + e + n
+         drei Milliarde     + n
+        """
         order_plural_suffix = ""
         if is_plural and order > 1:
-            # ...tausend
-            # ... Million   + e + n
-            # ... Milliarde     + n
             if order % 2 == 0:
                 order_plural_suffix += "e"
             order_plural_suffix += "n"
@@ -49,16 +54,21 @@ class GermanNumberWriter(NumberWriter):
 
     def calculate_cardinal_singular_suffix(self, order, segment_as_text):
         """
-        calculate singularity depending on order
+        ein_s_
+        einhundertein_s_
+        einhundertein__tausend !!!
+        ein_e_ Million
+        einhundertein_s_ Millionen
         """
-        is_plural = True
+        is_plural = segment_as_text != "ein"
         cardinal_singular_suffix = ""
         if segment_as_text[-3:] == "ein":
-            if order == 0:
+            if order == 1:
+                pass
+            elif order == 0 or is_plural:
                 cardinal_singular_suffix = "s"
-            elif order > 1:
+            else:
                 cardinal_singular_suffix = "e"
-            is_plural = False
         return is_plural, cardinal_singular_suffix
 
     def calculate_order_separator(self, order):

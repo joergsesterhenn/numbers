@@ -8,6 +8,8 @@ from number_writer.english.englishnumberwriter import EnglishNumberWriter
 from gtts import gTTS
 from pygame import mixer, time
 
+from number_writer.numberwriter import NumberWriter
+
 
 def main():
     user_input = ''
@@ -30,29 +32,37 @@ def print_and_say(number, lang):
     prints the number as text and then reads the integer number with
     the Google text to speech framework, so that we can compare results
     """
+    number_as_text,number_as_audio = convert(number, lang)
+    print(number_as_text)
+    say(number_as_audio)
+
+
+def convert(number, lang):
+    number_writer: NumberWriter
     if lang in ("g", "G"):
         language = 'de'
-        text = GermanNumberWriter(int(number)).to_text()
+        number_writer = GermanNumberWriter(int(number))
     else:
         language = 'en'
-        text = EnglishNumberWriter(int(number)).to_text()
-    print(text)
+        number_writer = EnglishNumberWriter(int(number))
+    number_as_text = number_writer.to_text()
+    number_as_audio = gTTS(text=number, lang=language)
+    return number_as_text, number_as_audio
 
-    # fun with accents
-    accents = ['com.au', 'co.uk', 'ca', 'co.in', 'ie', 'co.za', 'us']
-    number_as_audio = (
-        gTTS(text=number,
-             lang=language,
-             tld=accents[randrange(len(accents))],
-             slow=False))
-    fp = BytesIO()
-    number_as_audio.write_to_fp(fp)
-    fp.seek(0)
+
+def say(audio):
     mixer.init()
-    mixer.music.load(fp)
+    mixer.music.load(to_file_like_object(audio))
     mixer.music.play()
     while mixer.music.get_busy():
         time.Clock().tick(10)
+
+
+def to_file_like_object(audio):
+    fp = BytesIO()
+    audio.write_to_fp(fp)
+    fp.seek(0)
+    return fp
 
 
 if __name__ == "__main__":
